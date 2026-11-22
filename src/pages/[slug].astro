@@ -1,0 +1,41 @@
+---
+import { getLiveCollection, getLiveEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+// The local server renders posts on demand from src/content/posts.
+// The published build (PUBLISH=1) is static, so every post has to be enumerated.
+export const getStaticPaths = process.env.PUBLISH
+  ? async () => {
+      const { entries } = await getLiveCollection('posts');
+      return (entries ?? [])
+        .filter((entry) => !entry.data.draft)
+        .map((entry) => ({ params: { slug: entry.id } }));
+    }
+  : undefined;
+
+const { slug } = Astro.params;
+
+const { entry, error } = slug
+  ? await getLiveEntry('posts', slug)
+  : { entry: undefined, error: undefined };
+
+if (error || !entry || entry.data.draft) {
+  return new Response('Not Found', { status: 404 });
+}
+
+const fmt = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+---
+
+<Base title={entry.data.title} description={entry.data.description}>
+  <article>
+    <header class="post-header">
+      <h1>{entry.data.title}</h1>
+      <p class="post-meta">
+        <time datetime={entry.data.date.toISOString()}>{fmt(entry.data.date)}</time>
+        {entry.data.author && <span class="post-author">{entry.data.author}</span>}
+      </p>
+    </header>
+    <div class="prose" set:html={entry.rendered?.html ?? ''} />
+  </article>
+</Base>

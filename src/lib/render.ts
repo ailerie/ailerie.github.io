@@ -1,0 +1,71 @@
+import Markdoc from '@markdoc/markdoc';
+import { createHighlighterCoreSync } from 'shiki/core';
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
+import ts from 'shiki/langs/typescript.mjs';
+import js from 'shiki/langs/javascript.mjs';
+import bash from 'shiki/langs/bash.mjs';
+import json from 'shiki/langs/json.mjs';
+import css from 'shiki/langs/css.mjs';
+import html from 'shiki/langs/html.mjs';
+import md from 'shiki/langs/markdown.mjs';
+import py from 'shiki/langs/python.mjs';
+import rs from 'shiki/langs/rust.mjs';
+import go from 'shiki/langs/go.mjs';
+import yaml from 'shiki/langs/yaml.mjs';
+import diff from 'shiki/langs/diff.mjs';
+import lightTheme from 'shiki/themes/github-light-default.mjs';
+import darkTheme from 'shiki/themes/github-dark-default.mjs';
+
+const highlighter = createHighlighterCoreSync({
+  themes: [lightTheme, darkTheme],
+  langs: [ts, js, bash, json, css, html, md, py, rs, go, yaml, diff],
+  engine: createJavaScriptRegexEngine(),
+});
+
+const THEMES = { light: 'github-light-default', dark: 'github-dark-default' };
+
+const unescapeHtml = (value: string) =>
+  value
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&');
+
+const highlight = (code: string, lang: string) => {
+  const language = lang && highlighter.getLoadedLanguages().includes(lang) ? lang : 'text';
+  return highlighter.codeToHtml(code, {
+    lang: language,
+    themes: THEMES,
+    defaultColor: false,
+  });
+};
+
+export function renderMarkdoc(source: string): string {
+  const ast = Markdoc.parse(source);
+  const html = Markdoc.renderers
+    .html(Markdoc.transform(ast))
+    .replace(/^<article>/, '')
+    .replace(/<\/article>$/, '');
+
+  return html.replace(
+    /<pre data-language="([^"]*)">([\s\S]*?)<\/pre>/g,
+    (match, lang: string, body: string) => highlight(unescapeHtml(body), lang)
+  );
+}
+
+/** Inner HTML of every top-level blockquote in the document, in order. */
+export function extractQuotes(source: string, limit = 3): string[] {
+  const ast = Markdoc.parse(source);
+  const quotes: string[] = [];
+
+  for (const node of ast.children) {
+    if (node.type !== 'blockquote') continue;
+    const html = Markdoc.renderers.html(Markdoc.transform(node));
+    const inner = html.replace(/^\s*<blockquote>/, '').replace(/<\/blockquote>\s*$/, '').trim();
+    if (inner) quotes.push(inner);
+    if (quotes.length >= limit) break;
+  }
+
+  return quotes;
+}

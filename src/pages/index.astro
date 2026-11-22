@@ -1,0 +1,24 @@
+---
+// The front page is the Articles list; the old mixed article+notes list is
+// gone (/notes still lists the notes).
+//
+// Server build: a real 302.
+// Published build: GitHub Pages serves static files only, so Astro.redirect
+// would emit its 2-second meta-refresh page. A hand-written zero-delay redirect
+// avoids that blank pause.
+if (!process.env.PUBLISH) {
+  return Astro.redirect('/articles');
+}
+
+Astro.response.headers.set('content-type', 'text/html; charset=utf-8');
+return new Response(
+  `<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>aileri</title>
+<link rel="canonical" href="/articles/">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0;url=/articles/">
+<script>location.replace('/articles/')</script>
+</head><body></body></html>`,
+  { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } }
+);
+---

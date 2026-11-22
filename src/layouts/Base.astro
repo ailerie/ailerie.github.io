@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const siteName = 'aileri';
+// The published build has no Keystatic integration, so the writing UI does not
+// exist there. Its link is dropped from that build only.
+const showWrite = !process.env.PUBLISH;
+const pageTitle = title ? `${title} — ${siteName}` : siteName;
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || path === `${href}/`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="alternate" type="application/rss+xml" title={siteName} href="/rss.xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      try {
+        var q = new URLSearchParams(location.search).get('theme');
+        if (q === 'terminal' || q === 'paper') localStorage.setItem('theme', q);
+        if (localStorage.getItem('theme') === 'terminal') {
+          document.documentElement.dataset.theme = 'terminal';
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <button class="theme-toggle" type="button" aria-label="Switch theme">&gt;</button>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="site-title" href="/">{siteName}</a>
+        <nav class="site-nav">
+          <a href="/articles" class:list={{ active: isActive('/articles') }}>articles</a>
+          <a href="/notes" class:list={{ active: isActive('/notes') }}>notes</a>
+          {showWrite && <a href="/keystatic">write</a>}
+          <a href="/sites" class:list={{ active: isActive('/sites') }}>index</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="wrap">
+        <slot />
+      </div>
+    </main>
+    <script is:inline>
+      (function () {
+        var btn = document.querySelector('.theme-toggle');
+        if (!btn) return;
+        var root = document.documentElement;
+        btn.addEventListener('click', function () {
+          var next = root.dataset.theme === 'terminal' ? 'paper' : 'terminal';
+          if (next === 'terminal') root.dataset.theme = 'terminal';
+          else delete root.dataset.theme;
+          try {
+            localStorage.setItem('theme', next);
+          } catch (e) {}
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "blog",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/build-fonts.mjs --cjk && astro build",
+    "build:publish": "node scripts/build-fonts.mjs --cjk && PUBLISH=1 astro build --config astro.config.publish.mjs",
+    "preview": "astro preview",
+    "fonts": "node scripts/build-fonts.mjs",
+    "astro": "astro",
+    "fonts:force": "node scripts/build-fonts.mjs --force"
+  },
+  "dependencies": {
+    "@astrojs/markdoc": "^2.1.4",
+    "@astrojs/node": "^11.1.12",
+    "@astrojs/react": "^7.1.7",
+    "@astrojs/rss": "^4.0.19",
+    "@keystatic/astro": "^6.0.0",
+    "@keystatic/core": "^0.6.9",
+    "astro": "^7.4.10",
+    "marked": "^18.2.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "shiki": "^4.6.0",
+    "yaml": "^2.9.1"
+  }
+}

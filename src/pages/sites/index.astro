@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getSites } from '../../lib/links';
+
+const sites = await getSites();
+---
+
+<Base title="Index">
+  <h1>Index</h1>
+  {
+    sites.length > 0 && (
+      <ul class="site-list">
+        {sites.map((site) => (
+          <li>
+            <p class="site-name">
+              <a href={site.url} target="_blank" rel="noopener noreferrer">{site.name}</a>
+            </p>
+            {site.description && <p class="site-desc">{site.description}</p>}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Base>

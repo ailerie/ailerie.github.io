@@ -1,0 +1,89 @@
+{
+  "sites": [
+    {
+      "name": "CFR",
+      "url": "https://cfr.org",
+      "description": "美国对外关系委员会（CFR）官网。成立于1918年，是美国最具影响力的外交政策与全球事务智库之一，发布大量分析报告、期刊《外交事务》及音频节目。"
+    },
+    {
+      "name": "Atlantic Council",
+      "url": "https://atlanticcouncil.org",
+      "description": "美国大西洋理事会官网。聚焦跨大西洋关系、全球安全、经济与科技议题，致力于推动美欧合作及应对全球性挑战。"
+    },
+    {
+      "name": "The Hill",
+      "url": "https://thehill.com",
+      "description": "美国《国会山报》官网。主要报道美国国会、白宫及政治动态，也涵盖政策辩论与智库观点。"
+    },
+    {
+      "name": "ECFR",
+      "url": "https://ecfr.eu",
+      "description": "欧洲对外关系委员会（ECFR）官网。致力于分析欧洲外交、安全与全球角色，推动欧洲共同外交政策研究。"
+    },
+    {
+      "name": "Responsible Statecraft",
+      "url": "https://responsiblestatecraft.org",
+      "description": "“负责任治国”网站。聚焦美国外交政策、国家安全与大国竞争，提供批判性与现实主义视角的政策分析。"
+    },
+    {
+      "name": "Acton Institute",
+      "url": "https://www.acton.org/",
+      "description": "位于美国密歇根州大急流城的智库与教育机构，致力于将犹太-基督教传统与自由市场原则进行系统性整合。"
+    },
+    {
+      "name": "The Register",
+      "url": "https://theregister.com",
+      "description": "英国科技新闻网站《The Register》。以幽默犀利的笔调报道 IT、网络安全、科技行业动态与数据隐私议题。"
+    },
+    {
+      "name": "RUSI",
+      "url": "https://rusi.org",
+      "description": "英国皇家联合军种研究所（RUSI）官网。世界最古老的防务与安全智库之一，发布军事、战略、情报与网络安全研究。"
+    },
+    {
+      "name": "The Diplomat",
+      "url": "https://thediplomat.com",
+      "description": "《外交学者》网站。聚焦亚太地区政治、安全、经济与社会议题，提供区域深度报道与评论。"
+    },
+    {
+      "name": "CSIS",
+      "url": "https://csis.org",
+      "description": "美国战略与国际研究中心（CSIS）官网。涵盖防务安全、地缘政治、经济安全与全球发展等领域，发布大量权威报告。"
+    },
+    {
+      "name": "Foreign Policy",
+      "url": "https://foreignpolicy.com",
+      "description": "《外交政策》杂志官网。关注全球政治、经济与思想，提供国际关系分析、评论与新闻。"
+    },
+    {
+      "name": "Lawfare",
+      "url": "https://lawfaremedia.org",
+      "description": "Lawfare 网站。专注国家安全法律、政策与战略问题，提供无党派、及时的深度分析。"
+    },
+    {
+      "name": "East Asia Forum",
+      "url": "https://eastasiaforum.org",
+      "description": "东亚论坛。基于澳大利亚国立大学，发布亚太地区政治、经济与安全议题的学术与政策分析文章。"
+    },
+    {
+      "name": "Crisis Group",
+      "url": "https://crisisgroup.org",
+      "description": "国际危机组织（ICG）官网。非政府组织，旨在预防战争、塑造和平，发布全球冲突地区实地调研与政策简报。"
+    },
+    {
+      "name": "Chatham House",
+      "url": "https://chathamhouse.org",
+      "description": "英国查塔姆研究所（皇家国际事务研究所）官网。世界领先的国际事务智库，以“查塔姆宫规则”闻名，发布全球议题研究。"
+    },
+    {
+      "name": "Brookings",
+      "url": "https://brookings.edu",
+      "description": "美国布鲁金斯学会官网。历史悠久的综合性智库，涵盖外交政策、经济、治理等广泛议题的深度研究。"
+    },
+    {
+      "name": "Foreign Affairs",
+      "url": "https://foreignaffairs.com",
+      "description": "《外交事务》杂志官网。由CFR出版，是美国最具声望的国际关系与外交政策期刊，发布长篇战略分析。"
+    }
+  ]
+}

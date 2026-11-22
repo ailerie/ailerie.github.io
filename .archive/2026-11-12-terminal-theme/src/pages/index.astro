@@ -1,0 +1,32 @@
+---
+import { getLiveCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const { entries, error } = await getLiveCollection('posts');
+
+const posts = (entries ?? [])
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmt = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+---
+
+<Base>
+  {
+    error ? (
+      <p class="empty">{error.message}</p>
+    ) : posts.length === 0 ? null : (
+      <ul class="post-list">
+        {posts.map((post) => (
+          <li>
+            <a href={`/${post.id}/`}>
+              <time datetime={post.data.date.toISOString()}>{fmt(post.data.date)}</time>
+              <span class="title">{post.data.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Base>

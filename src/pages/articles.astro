@@ -1,0 +1,16 @@
+---
+import { getLiveCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import EntryList from '../components/EntryList.astro';
+
+const { entries, error } = await getLiveCollection('posts');
+
+const posts = (entries ?? [])
+  .filter((entry) => !entry.data.draft && !entry.data.author)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title="Articles">
+  <h1>Articles</h1>
+  {error ? <p class="entry-desc">{error.message}</p> : <EntryList entries={posts} />}
+</Base>
